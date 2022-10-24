@@ -1,10 +1,26 @@
 from collections import Counter
 
-class Solution:
+# counter most_common
+class Solution1:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         counter = Counter(nums)
         commons = counter.most_common(k)
         return [num for num, _ in commons]
+
+# bucket sort
+class Solution2:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        res = []
+        counts = Counter(nums)
+        bucket = [[] for _ in range(len(nums) + 1)]
+
+        for num, count in counts.items():
+            bucket[count].append(num)
+
+        for i in range(len(nums), 0, -1):
+            res.extend(bucket[i])
+            if len(res) == k:
+                return res
 
 
 """
